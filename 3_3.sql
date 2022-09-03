@@ -169,6 +169,13 @@ ID    NAME                 DEPT_NAME                SALARY
 
 9.Find the instructor names and the courses they taught for all instructors in the Biology department who have taught some course.
 
+SQL> select i.name,t.course_id from instructor i,teaches t where i.dept_name='Biology' and i.id=t.id;
+
+NAME                 COURSE_I
+-------------------- --------
+Crick                BIO-101
+Crick                BIO-301
+
 
 10.Find the set of all courses taught either in Fall 2009 or in Spring 2010, or both.
 
@@ -210,4 +217,10 @@ Williams
 
 13.Display the IDs of all instructors who have never taught a course. (Don’t write nested query)
 
+SQL> select i.id from instructor i minus (select t.id from teaches t);
 
+ID
+-----
+33456
+58583
+76543
