@@ -168,20 +168,43 @@ KING             5000
 SQL> ed
 Wrote file afiedt.buf
 
-  1* select e.name,count(*) from emp e,emp e1 where (e.job='MANAGER' and e1.deptno=e.deptno) group b
+  1* select ename,c from emp e,(select mgr,count(mgr) c from emp e1 group by mgr) s where e.empno=s.
 SQL> /
-select e.name,count(*) from emp e,emp e1 where (e.job='MANAGER' and e1.deptno=e.deptno) group by e.e
-       *
-ERROR at line 1:
-ORA-00904: "E"."NAME": invalid identifier
+
+ENAME               C
+---------- ----------
+JONES               2
+BLAKE               5
+CLARK               1
+SCOTT               1
+KING                3
+FORD                1
+
+6 rows selected.
 
 14.Write a query to find out the manager having Maximum number of sub-ordinates.
 
-select e.name,count(*) from emp e,emp e1 where (e.job='MANAGER' and e1.deptno=e.deptno) group by e.ename having count(*)=(select max(count(*))
-from emp e2,emp e3 where (e2.job='MANAGER' and e3.deptno=e2.deptno) group by e2.ename);
+SQL> ed
+Wrote file afiedt.buf
 
+  1* select ename,c from emp e,(select mgr,count(mgr) c from emp group by mgr having count(mgr)>=all
+SQL> /
+
+ENAME               C
+---------- ----------
+BLAKE               5
+
+                                
 15.Write a query to find out the top three earners.
 
+SQL> select ename,empno,sal from emp where rownum<=3 order by sal desc;
+
+ENAME           EMPNO        SAL
+---------- ---------- ----------
+KING             7839       5000
+BLAKE            7698       2850
+CLARK            7782       2450
+                                
 
 16.Write a query to find out the employees who have joined before their managers.
 
