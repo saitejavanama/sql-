@@ -58,14 +58,17 @@ History                    61000
 
 7.Find the number of instructors in each department who teach a course in the Spring 2010 semester.
 
-  1* select dept_name,count(distinct i.id) from instructor i,teaches t where i.id=t.id and semester=
+select dept_name,count(teaches.id) from instructor,teaches where instructor.id=teaches.id and semester='Spring' and year=2010 group by dept_name;
+
 SQL> /
 
-DEPT_NAME            COUNT(DISTINCTI.ID)
--------------------- -------------------
-Comp. Sci.                             3
-Finance                                1
-Music                                  1
+DEPT_NAME            COUNT(TEACHES.ID)
+-------------------- -----------------
+Comp. Sci.                           4
+Finance                              1
+History                              1
+Music                                1
+
 
 8.Find the department name and average salary of the department for only those departments where the average salary of the instructors is more than $42,000.
 
@@ -116,27 +119,30 @@ SQL> select sum(credits) from takes t,course c where id='12345' and t.course_id=
 SUM(CREDITS)
 ------------
           14
+
           
 12.Display the total credits for each of the students, along with the ID of the student; don't bother about the name of the student. (Don't display the 
 tot_creds value from the student table, you should use SQL aggregation on courses taken by the student. For students who have not registered for any 
 course, tot_creds should be 0)
 
-SQL> select id,sum(credits) from takes t,course c where t.course_id=c.course_id group by id;
+SQL>  select id,sum(credits) from takes t,course c where t.course_id=c.course_id group by id;
 
 ID    SUM(CREDITS)
 ----- ------------
 00128            7
-23121            3
-98765            7
-76653            3
 12345           14
-54321            8
-76543            7
+19991            3
+23121            3
+44553            4
 45678           11
-...
-...
-...
-...
+54321            8
+55739            3
+76543            7
+76653            3
+98765            7
+
+ID    SUM(CREDITS)
+----- ------------
+98988            8
 
 12 rows selected.
-
