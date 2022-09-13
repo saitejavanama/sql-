@@ -1,8 +1,33 @@
-
 1.	Write a PL/SQL block to read a number and check whether it is a palindrome or not.
 
 CODE:
 
+declare 
+n number :=&n;
+ans number :=n;
+t number:=0;
+s number :=0;
+begin
+while n>0 loop
+t:=mod(n,10);
+s:=t+s*10;
+n:=trunc(n/10);
+end loop;
+if s=ans then 
+dbms_output.put_line('palindrome');
+else
+dbms_output.put_line('not a palindrome'); 
+end if;
+end;
+
+OUTPUT:
+
+Enter value for n: 1001
+old   2: n number :=&n;
+new   2: n number :=1001;
+palindrome
+
+PL/SQL procedure successfully completed.
 
 
 2.	Write a PL/SQL Program to print the first n fibonacci numbers.
@@ -40,31 +65,128 @@ PL/SQL procedure successfully completed.
 
 CODE:
 
+declare 
+ans number := 0;
+n number := &n;
+begin
+if n=1 then 
+dbms_output.put_line('not a prime');
+end if;
+if n=2 then 
+dbms_output.put_line('prime');
+else
+for i in 2..n-1 loop
+exit when mod(n,i)=0; 
+ans := ans + 1;
+end loop;
+if ans= n-2 then
+dbms_output.put_line('prime');
+else 
+dbms_output.put_line('not a prime');
+end if;
+end if;
+end;
+
+OUTPUT:
+
+Enter value for n: 9
+old   3: n number := &n;
+new   3: n number := 9;
+not a prime
+
+PL/SQL procedure successfully completed.
+
+4.	Write a PL/SQL block which will accept two numbers and find out their LCM and HCF. The output should be stored in a table called DEMO_TAB.
+DEMO_TAB
+Number1	Number2	LCM	HCF
+
+CODE:
+
 declare
 x number:=&x;
 y number:=&y;
+aa number:=x;
+bb number:=y;
 a number:=x;
 b number:=y;
 t number:=1;
+p number:=1;
+ans number:=1;
 begin
 while b!=0 LOOP
 t:=b;
 b :=a mod b;
 a:=t;
 END LOOP;
-DBMS_OUTPUT.PUT_LINE('GCD of '|| x ||' , '|| y ||' is '||a);
+DBMS_OUTPUT.PUT_LINE('GCD of'|| x ||','|| y ||'is'||a);
+if aa>bb then
+t:=aa;
+else
+t:=bb;
+end if;
+while true loop
+ans:=p*t;
+exit when  mod(p*t,aa)=0 and mod(p*t,bb)=0;
+t:=t+1;
+end loop;
+dbms_output.put_line('lcm is '||ans);
+insert into demo_tab (hcf,lcm,num1,num2) values(a,ans,x,y);
 END;
-/
 
 OUTPUT:
-Enter value for x: 128
+Enter value for x: 12
 old   2: x number:=&x;
-new   2: x number:=128;
-Enter value for y: 96
+new   2: x number:=12;
+Enter value for y: 18
 old   3: y number:=&y;
-new   3: y number:=96;
-GCD of 128 , 96 is 32
+new   3: y number:=18;
+GCD of12,18is6
+lcm is 36
 
 PL/SQL procedure successfully completed.
 
+SQL> select * from demo_tab;
+
+       HCF        LCM       NUM1       NUM2
+---------- ---------- ---------- ----------
+         6         36         12         18
+
+
+5.	Write a Pl/SQL program using FOR loop to insert ten rows into a database table.
+
+CODE:
+
+declare
+x number:=&x;
+begin
+for i in 1..10 loop
+insert into five values(x*i);
+end loop;
+end;
+/
+
+OUTPUT:
+
+Enter value for x: 2
+old   2: x number:=&x;
+new   2: x number:=2;
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from five;
+
+       VAL
+----------
+         2
+         4
+         6
+         8
+        10
+        12
+        14
+        16
+        18
+        20
+
+10 rows selected.
 
