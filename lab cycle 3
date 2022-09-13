@@ -35,3 +35,36 @@ new   2: n number :=5;
 5
 
 PL/SQL procedure successfully completed.
+
+3.	Write a PL/SQL block which will accept a number and checks if it is a prime number or not. 
+
+CODE:
+
+declare
+x number:=&x;
+y number:=&y;
+a number:=x;
+b number:=y;
+t number:=1;
+begin
+while b!=0 LOOP
+t:=b;
+b :=a mod b;
+a:=t;
+END LOOP;
+DBMS_OUTPUT.PUT_LINE('GCD of '|| x ||' , '|| y ||' is '||a);
+END;
+/
+
+OUTPUT:
+Enter value for x: 128
+old   2: x number:=&x;
+new   2: x number:=128;
+Enter value for y: 96
+old   3: y number:=&y;
+new   3: y number:=96;
+GCD of 128 , 96 is 32
+
+PL/SQL procedure successfully completed.
+
+
