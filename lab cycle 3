@@ -1,0 +1,37 @@
+
+1.	Write a PL/SQL block to read a number and check whether it is a palindrome or not.
+
+CODE:
+
+
+
+2.	Write a PL/SQL Program to print the first n fibonacci numbers.
+ 
+ CODE:
+ declare
+n number :=&n;
+a number :=0;
+b number :=1;
+c number :=0;
+begin
+	DBMS_OUTPUT.PUT_LINE(c);
+FOR i IN 1..n LOOP
+	a:=b;
+	b:=c;
+	c:=a+b;
+	DBMS_OUTPUT.PUT_LINE(c);
+END LOOP;
+END;
+
+OUTPUT:
+Enter value for n: 5
+old   2: n number :=&n;
+new   2: n number :=5;
+0
+1
+1
+2
+3
+5
+
+PL/SQL procedure successfully completed.
